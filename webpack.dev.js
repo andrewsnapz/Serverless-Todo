@@ -8,5 +8,6 @@ module.exports = merge(common, {
     static: "./dist",
     historyApiFallback: true,
     open: ["http://localhost:8080/"],
+    hot: true,
   },
 });

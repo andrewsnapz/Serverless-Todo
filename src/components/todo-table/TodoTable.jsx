@@ -16,13 +16,18 @@ import EditTodoDialog from "./EditTodoDialog.jsx";
 
 export default function TodoTable({ allTodoRows }) {
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+  const [rowDetails, setRowDetails] = useState({});
 
   return (
     <>
       {isEditDialogOpen && (
         <EditTodoDialog
           isEditDialogOpen={isEditDialogOpen}
-          onHandleClose={() => setIsEditDialogOpen(false)}
+          onHandleClose={() => {
+            setRowDetails({});
+            setIsEditDialogOpen(false);
+          }}
+          rowDetails={rowDetails}
         />
       )}
       <TableContainer>
@@ -53,7 +58,16 @@ export default function TodoTable({ allTodoRows }) {
                       aria-label="Edit or delete todo"
                     >
                       <Button
-                        onClick={() => setIsEditDialogOpen((prev) => !prev)}
+                        onClick={() => {
+                          setRowDetails({
+                            username,
+                            description,
+                            done,
+                            targetDate,
+                            id,
+                          });
+                          setIsEditDialogOpen((prev) => !prev);
+                        }}
                       >
                         Edit
                       </Button>

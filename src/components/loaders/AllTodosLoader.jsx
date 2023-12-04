@@ -10,29 +10,27 @@ export default function AllTodosLoader({ children }) {
   useEffect(() => {
     (async () => {
       await axios
-        // .get(api_url, {
-        //   headers: {
-        //     "Content-Type": "application/json",
-        //   },
-        // })
-        .get("https://run.mocky.io/v3/759ed6fc-18bf-45ed-b9af-85a7bbeb7f1e")
+        .get(api_url, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+        // .get("https://run.mocky.io/v3/759ed6fc-18bf-45ed-b9af-85a7bbeb7f1e")
         .then((res) => {
           // for aws lambda function:
-          // return res.data.body;
+          return res.data.body;
 
-          return res.data;
+          // return res.data;
         })
         .then((data) => {
           // for aws lambda function:
-          // setAllTodoRows(JSON.parse(data));
-
-          setAllTodoRows(data);
-          setIsLoading(false);
+          setAllTodoRows(JSON.parse(data));
+          // setAllTodoRows(data);
         })
-        .catch((err) => {
+        .catch(() => {
           setIsError(true);
-          setIsLoading(false);
-        });
+        })
+        .finally(() => setIsLoading(false));
     })();
   }, []);
 
